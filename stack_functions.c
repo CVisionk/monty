@@ -1,13 +1,37 @@
 #include "monty.h"
 
 /**
- * add_stack - add to stack
- * @num: number to add
- * Return: return address of new node
+ * isNumeric - check if input is numeric
+ * @stack: head of stack/queue
+ * @line_number: lines_read
  */
 
-stack_t *add_stack(const int n)
+int isNumeric(char num[])
 {
+	int n = atoi(num);
+	char isdigit[32];
+
+	sprintf(isdigit, "%d", n);
+	return (strcmp(isdigit, num));
+}
+
+/**
+ * add_stack - add to stack
+ * @stack: head of stack/queue
+ */
+
+void add_stack(stack_t **stack, stack_t **tail, unsigned int line_number, char str[])
+{
+	int n = atoi(str);
+
+	if(isNumeric(str)!=0)
+	{
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+
+
+
 	stack_t *newNode = malloc(sizeof(stack_t));
 	if (newNode == NULL)
 	{
@@ -17,42 +41,47 @@ stack_t *add_stack(const int n)
 	
 	newNode->n = n;
 	newNode->prev = NULL;
-	if(!head)
+	if(!*stack)
 	{
-		tail = newNode;
+		*tail = newNode;
 		newNode->next = NULL;
 	} else
 	{
-		newNode->next = head;
-		head->prev = newNode;
+		newNode->next = *stack;
+		(*stack)->prev = newNode;
 	}
 	
-	head = newNode;
+	*stack = newNode;
 
-	return newNode;
 }
 
- *pop_stack_queue()
+/**
+ * pop_stack_queue - pop node from stack
+ */
+
+void pop_stack_queue(stack_t **stack, unsigned int line_number)
 {
-	if(!head)
+	if(!*stack)
 	{
-		fprintf(stderr, "L%d: can't pop an empty stack", line_count);
+		fprintf(stderr, "L%d: can't pop an empty stack", line_number);
 		exit(EXIT_FAILURE);
 	}
 
-	if (stack_mode_q == 1)
+	if (prop.stack_is_q == 1)
 	{
 		stack_t *temp;
-		temp = tail;
-		tail = tail->prev;
-		tail->next = NULL;
+		temp = *stack;
+		*stack = (*stack)->prev;
+		(*stack)->next = NULL;
 		free(temp);
 	} else
 	{
 		stack_t *temp;
-		temp = head;
-		head = head->next;
-		head->prev = NULL;
+		temp = *stack;
+		*stack = (*stack)->next;
+		(*stack)->prev = NULL;
 		free(temp);
 	}
 }
+
+
