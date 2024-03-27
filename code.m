@@ -1,2 +1,1 @@
-push 1a
-pall
+pint
