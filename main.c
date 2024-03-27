@@ -9,6 +9,12 @@
  * @argv: array of args
  */
 
+void usage_exit()
+{
+	fprintf(stderr, "USAGE: monty file\n");
+	exit(EXIT_FAILURE);
+}
+
 int main(int argc, char *argv[])
 {
 	FILE *fp;
@@ -21,10 +27,7 @@ int main(int argc, char *argv[])
 	char *while_break = NULL;
 
 	if (argc != 2)
-	{
-		fprintf(stderr, "USAGE: monty file\n");
-		exit(EXIT_FAILURE);
-	}
+		usage_exit();
 	fp = fopen(argv[1], "r");
 	if (!fp)
 	{
@@ -32,6 +35,7 @@ int main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 	while_break = fgets(line, 100, fp);
+
 	while (while_break != NULL)
 	{	
 		line_number++;
