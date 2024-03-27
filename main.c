@@ -31,20 +31,22 @@ int main(int argc, char *argv[])
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
-
-	while_break = fgets(line, sizeof(line), fp);
+	while_break = fgets(line, 100, fp);
 	while (while_break != NULL)
-	{
+	{	
 		line_number++;
 
 		token = strtok(line, delim);
-		if (strcmp(token, "push") == 0)
+		if (token != NULL && strcmp(token, "push") == 0)
 		{
 			token = strtok(NULL, delim);
 			add_stack(&stack, &tail, line_number, token);
-		} else
+		} else if (token !=NULL)
+		{
 			execute(&stack, line_number, token);
-		while_break = fgets(line, sizeof(line), fp);
+		}
+		memset(line, 0, sizeof(line));
+		while_break = fgets(line, 100, fp);
 	}
 	fclose(fp);
 

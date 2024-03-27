@@ -18,6 +18,7 @@ void execute(stack_t **stack, unsigned int line_number, char opcode_input[])
 		{"add", f_add}
 
 	};
+
 	call_length = sizeof(call_functions) / sizeof(call_functions[0]);
 
 	for (i = 0; i < call_length; i++)
