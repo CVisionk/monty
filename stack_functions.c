@@ -63,6 +63,7 @@ void add_stack(stack_t **s, stack_t **t, unsigned int l, char sn[])
 void pop_stack_queue(stack_t **stack, unsigned int line_number)
 {
 	stack_t *temp;
+
 	if (!*stack)
 	{
 		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
@@ -87,13 +88,13 @@ void pop_stack_queue(stack_t **stack, unsigned int line_number)
 
 /**
  * print_stack_queue - pop node from stack
- * @stack: head of stack/queue
- * @line_number: lines read
+ * @s: head of stack/queue
+ * @l: lines read
  */
 
-void print_stack_queue(stack_t **stack, __attribute__((unused)) unsigned int line_number)
+void print_stack_queue(stack_t **s, __attribute__((unused)) unsigned int l)
 {
-	stack_t *current = *stack;
+	stack_t *current = *s;
 
 	while (current)
 	{

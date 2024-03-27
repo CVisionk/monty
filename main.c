@@ -1,19 +1,23 @@
 #include <stdio.h>
 #include <string.h>
 #include "monty.h"
-#include <sys/types.h>
+
+/**
+ * usage_exit - exit program
+ */
+
+void usage_exit(void)
+{
+	fprintf(stderr, "USAGE: monty file\n");
+	exit(EXIT_FAILURE);
+}
 
 /**
  * main - entry point
  * @argc: number of args
  * @argv: array of args
+ * Return: 0
  */
-
-void usage_exit()
-{
-	fprintf(stderr, "USAGE: monty file\n");
-	exit(EXIT_FAILURE);
-}
 
 int main(int argc, char *argv[])
 {
@@ -34,10 +38,11 @@ int main(int argc, char *argv[])
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
+
 	while_break = fgets(line, 100, fp);
 
 	while (while_break != NULL)
-	{	
+	{
 		line_number++;
 
 		token = strtok(line, delim);
@@ -45,7 +50,7 @@ int main(int argc, char *argv[])
 		{
 			token = strtok(NULL, delim);
 			add_stack(&stack, &tail, line_number, token);
-		} else if (token !=NULL)
+		} else if (token != NULL)
 		{
 			execute(&stack, line_number, token);
 		}

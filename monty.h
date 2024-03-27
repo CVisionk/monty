@@ -51,7 +51,7 @@ typedef struct instruction_s
 
 void add_stack(stack_t **s, stack_t **t, unsigned int line_number, char sn[]);
 void pop_stack_queue(stack_t **stack, unsigned int line_number);
-void print_stack_queue(stack_t **stack, unsigned int line_number);
+void print_stack_queue(stack_t **s, unsigned int l);
 void f_pint(stack_t **stack, unsigned int line_number);
 
 void execute(stack_t **stack, unsigned int line_number, char str[]);
