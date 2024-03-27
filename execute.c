@@ -11,7 +11,8 @@ void execute(stack_t **stack, unsigned int line_number, char opcode_input[])
 	size_t call_length;
 	instruction_t call_functions[] = 
 	{
-		{"pop", pop_stack_queue}
+		{"pop", pop_stack_queue},
+		{"pall", print_stack_queue}
 
 	};
 	call_length = sizeof(call_functions) / sizeof(call_functions[0]);

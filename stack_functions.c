@@ -84,4 +84,16 @@ void pop_stack_queue(stack_t **stack, unsigned int line_number)
 	}
 }
 
+/**
+ * pop_stack_queue - pop node from stack
+ */
 
+void print_stack_queue(stack_t **stack, unsigned int line_number)
+{
+	stack_t *current = *stack;
+	while(current)
+	{
+		printf("%d\n", current->n);
+		current = current->next;
+	}
+}
