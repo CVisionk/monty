@@ -2,8 +2,8 @@
 
 /**
  * isNumeric - check if input is numeric
- * @stack: head of stack/queue
- * @line_number: lines_read
+ * @num: string to check
+ * Return: 0 if is digit;
  */
 
 int isNumeric(char num[])
@@ -17,83 +17,106 @@ int isNumeric(char num[])
 
 /**
  * add_stack - add to stack
- * @stack: head of stack/queue
+ * @s: head of stack/queue
+ * @t: tail of stack
+ * @l: lines read
+ * @sn: num to add
  */
 
-void add_stack(stack_t **stack, stack_t **tail, unsigned int line_number, char str[])
+void add_stack(stack_t **s, stack_t **t, unsigned int l, char sn[])
 {
-	int n = atoi(str);
+	int n = atoi(sn);
+	stack_t *newNode = malloc(sizeof(stack_t));
 
-	if(isNumeric(str)!=0)
+	if (isNumeric(sn) != 0)
 	{
-		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		fprintf(stderr, "L%d: usage: push integer\n", l);
 		exit(EXIT_FAILURE);
 	}
-
-
-
-	stack_t *newNode = malloc(sizeof(stack_t));
 	if (newNode == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
-	
+
 	newNode->n = n;
 	newNode->prev = NULL;
-	if(!*stack)
+	if (!*s)
 	{
-		*tail = newNode;
+		*t = newNode;
 		newNode->next = NULL;
 	} else
 	{
-		newNode->next = *stack;
-		(*stack)->prev = newNode;
+		newNode->next = *s;
+		(*s)->prev = newNode;
 	}
-	
-	*stack = newNode;
+	*s = newNode;
 
 }
 
 /**
  * pop_stack_queue - pop node from stack
+ * @stack: head of stack/queue
+ * @line_number: lines read
  */
 
 void pop_stack_queue(stack_t **stack, unsigned int line_number)
 {
-	if(!*stack)
+	if (!*stack)
 	{
-		fprintf(stderr, "L%d: can't pop an empty stack", line_number);
+		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 
-	if (prop.stack_is_q == 1)
+	stack_t *temp;
+
+	temp = *stack;
+	if (0)
 	{
-		stack_t *temp;
-		temp = *stack;
 		*stack = (*stack)->prev;
 		(*stack)->next = NULL;
 		free(temp);
 	} else
 	{
-		stack_t *temp;
-		temp = *stack;
 		*stack = (*stack)->next;
-		(*stack)->prev = NULL;
+		if (*stack)
+			(*stack)->prev = NULL;
 		free(temp);
 	}
 }
 
 /**
- * pop_stack_queue - pop node from stack
+ * print_stack_queue - pop node from stack
+ * @stack: head of stack/queue
+ * @line_number: lines read
  */
 
 void print_stack_queue(stack_t **stack, unsigned int line_number)
 {
 	stack_t *current = *stack;
-	while(current)
+
+	while (current)
 	{
 		printf("%d\n", current->n);
 		current = current->next;
 	}
+}
+
+/**
+ * f_pint - print last node
+ * @stack: head of stack/queue
+ * @line_number: lines read
+ */
+
+void f_pint(stack_t **stack, unsigned int line_number)
+{
+	if (*stack)
+	{
+		printf("%d\n", (*stack)->n);
+	} else
+	{
+		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+
 }

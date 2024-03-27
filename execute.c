@@ -2,22 +2,24 @@
 
 /**
  * execute - execute commands
- * @command: command to execute
- * @arg: arguments
+ * @stack: stack on nums;
+ * @line_number: line in file
+ * @opcode_input: input
  */
 
 void execute(stack_t **stack, unsigned int line_number, char opcode_input[])
 {
 	size_t call_length;
-	instruction_t call_functions[] = 
-	{
+	instruction_t call_functions[] = {
 		{"pop", pop_stack_queue},
-		{"pall", print_stack_queue}
+		{"pall", print_stack_queue},
+		{"pint", f_pint},
+		{"add", f_add}
 
 	};
 	call_length = sizeof(call_functions) / sizeof(call_functions[0]);
 
-	for(int i = 0; i < call_length; i++)
+	for (int i = 0; i < call_length; i++)
 	{
 		if (strcmp(opcode_input, call_functions[i].opcode) == 0)
 		{
