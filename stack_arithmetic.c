@@ -49,6 +49,7 @@ void do_arithmetic(stack_t **stack, unsigned int line_number, char op[])
 {
 
 	stack_t *curr = *stack;
+	int n, m;
 
 	if (!curr || !curr->next)
 	{
@@ -56,8 +57,8 @@ void do_arithmetic(stack_t **stack, unsigned int line_number, char op[])
 		exit(EXIT_FAILURE);
 	}
 
-	int n = (curr->n);
-	int m = (curr->next->n);
+	n = (curr->n);
+	m = (curr->next->n);
 
 	(curr->next)->n = perform_arithmetic(n, m, op);
 	*stack = curr->next;

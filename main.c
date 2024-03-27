@@ -1,5 +1,7 @@
-#include "monty.h"
+#include <stdio.h>
 #include <string.h>
+#include "monty.h"
+#include <sys/types.h>
 
 /**
  * main - entry point
@@ -7,16 +9,16 @@
  * @argv: array of args
  */
 
-void main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 	FILE *fp;
-	char *line = NULL;
-	size_t lineSize = 0;
+	char line[100];
 	unsigned int line_number = 0;
 	const char delim[] = " \t\n";
 	char *token = NULL;
 	stack_t *stack = NULL;
 	stack_t *tail = NULL;
+	char *while_break = NULL;
 
 	if (argc != 2)
 	{
@@ -30,7 +32,8 @@ void main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 
-	while (getline(&line, &lineSize, fp) != -1)
+	while_break = fgets(line, sizeof(line), fp);
+	while (while_break != NULL)
 	{
 		line_number++;
 
@@ -41,7 +44,9 @@ void main(int argc, char *argv[])
 			add_stack(&stack, &tail, line_number, token);
 		} else
 			execute(&stack, line_number, token);
+		while_break = fgets(line, sizeof(line), fp);
 	}
-	free(line);
 	fclose(fp);
+
+	return (0);
 }

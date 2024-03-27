@@ -10,6 +10,7 @@
 void execute(stack_t **stack, unsigned int line_number, char opcode_input[])
 {
 	size_t call_length;
+	size_t i = 0;
 	instruction_t call_functions[] = {
 		{"pop", pop_stack_queue},
 		{"pall", print_stack_queue},
@@ -19,7 +20,7 @@ void execute(stack_t **stack, unsigned int line_number, char opcode_input[])
 	};
 	call_length = sizeof(call_functions) / sizeof(call_functions[0]);
 
-	for (int i = 0; i < call_length; i++)
+	for (i = 0; i < call_length; i++)
 	{
 		if (strcmp(opcode_input, call_functions[i].opcode) == 0)
 		{
