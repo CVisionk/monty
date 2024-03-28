@@ -12,7 +12,7 @@
 int execute(char *content, stack_t **stack, unsigned int counter, FILE *file)
 {
 	instruction_t opst[] = {
-				{"push", f_push}, {"pall", print_stack_queue}, {"pint", f_pint},
+				{"push", f_push}, {"pall", f_pall}, {"pint", f_pint},
 				{"pop", f_pop},
 				{NULL, NULL}
 				};
@@ -97,7 +97,7 @@ void f_pint(stack_t **head, unsigned int counter)
 * Return: none
 */
 
-void print_stack_queue(stack_t **head, unsigned int counter)
+void f_pall(stack_t **head, unsigned int counter)
 {
 	stack_t *h = *head;
 	(void)counter;
