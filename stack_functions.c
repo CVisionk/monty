@@ -31,11 +31,13 @@ void add_stack(stack_t **s, stack_t **t, unsigned int l, char sn[])
 	if (isNumeric(sn) != 0)
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", l);
+		fflush(stderr);
 		exit(EXIT_FAILURE);
 	}
 	if (newNode == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
+		fflush(stderr);
 		exit(EXIT_FAILURE);
 	}
 
@@ -67,6 +69,7 @@ void pop_stack_queue(stack_t **stack, unsigned int line_number)
 	if (!*stack)
 	{
 		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
+		fflush(stderr);
 		exit(EXIT_FAILURE);
 	}
 
@@ -99,6 +102,7 @@ void print_stack_queue(stack_t **s, __attribute__((unused)) unsigned int l)
 	while (current)
 	{
 		printf("%d\n", current->n);
+		fflush(stdout);
 		current = current->next;
 	}
 }
@@ -114,9 +118,11 @@ void f_pint(stack_t **stack, unsigned int line_number)
 	if (*stack)
 	{
 		printf("%d\n", (*stack)->n);
+		fflush(stdout);
 	} else
 	{
 		fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
+		fflush(stderr);
 		exit(EXIT_FAILURE);
 	}
 

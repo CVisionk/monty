@@ -9,6 +9,7 @@
 void usage_exit(void)
 {
 	fprintf(stderr, "USAGE: monty file\n");
+	fflush(stderr);
 	exit(EXIT_FAILURE);
 }
 
@@ -36,6 +37,7 @@ int main(int argc, char *argv[])
 	if (!fp)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
+		fflush(stderr);
 		exit(EXIT_FAILURE);
 	}
 
