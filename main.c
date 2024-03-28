@@ -4,18 +4,17 @@
 bus_t bus = {NULL, NULL, NULL, 0};
 
 /**
-* main - monty code interpreter
+* main - entry point
 * @argc: argument counter
-* @argv: argument vector
+* @argv: arguments array
 *
 * Return: always 0
 */
 int main(int argc, char *argv[])
 {
-	char *content;
-	FILE *file;
+	char *line;
+	FILE *fp;
 	size_t size = 0;
-	ssize_t read_line = 1;
 	stack_t *stack = NULL;
 	unsigned int counter = 0;
 
@@ -25,29 +24,27 @@ int main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 
-	file = fopen(argv[1], "r");
-	bus.file = file;
+	fp = fopen(argv[1], "r");
+	bus.fp = fp;
 
-	if (!file)
+	if (!fp)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
 
-	while (read_line > 0)
+	while (getline(&line, &size, fp) > 0)
 	{
-		content = NULL;
-		read_line = getline(&content, &size, file);
-		bus.content = content;
+		bus.line = line;
 		counter++;
 
-		if (read_line > 0)
-			execute(content, &stack, counter, file);
+		execute(line, &stack, counter, fp);
 
-		free(content);
+		free(line);
+		line = NULL;
 	}
 
 	free_stack(stack);
-	fclose(file);
+	fclose(fp);
 	return (0);
 }

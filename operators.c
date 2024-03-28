@@ -22,8 +22,8 @@ void f_add(stack_t **head, unsigned int counter)
 	if (length < 2)
 	{
 		fprintf(stderr, "L%d: can't add, stack too short\n", counter);
-		fclose(bus.file);
-		free(bus.content);
+		fclose(bus.fp);
+		free(bus.line);
 		free_stack(*head);
 		exit(EXIT_FAILURE);
 	}
@@ -54,8 +54,8 @@ void f_sub(stack_t **head, unsigned int counter)
 	if (nd < 2)
 	{
 		fprintf(stderr, "L%d: can't sub, stack too short\n", counter);
-		fclose(bus.file);
-		free(bus.content);
+		fclose(bus.fp);
+		free(bus.line);
 		free_stack(*head);
 		exit(EXIT_FAILURE);
 	}
@@ -88,8 +88,8 @@ void f_mul(stack_t **head, unsigned int counter)
 	if (length < 2)
 	{
 		fprintf(stderr, "L%d: can't mul, stack too short\n", counter);
-		fclose(bus.file);
-		free(bus.content);
+		fclose(bus.fp);
+		free(bus.line);
 		free_stack(*head);
 		exit(EXIT_FAILURE);
 	}
@@ -122,8 +122,8 @@ void f_div(stack_t **head, unsigned int counter)
 	if (length < 2)
 	{
 		fprintf(stderr, "L%d: can't div, stack too short\n", counter);
-		fclose(bus.file);
-		free(bus.content);
+		fclose(bus.fp);
+		free(bus.line);
 		free_stack(*head);
 		exit(EXIT_FAILURE);
 	}
@@ -131,8 +131,8 @@ void f_div(stack_t **head, unsigned int counter)
 	if (h->n == 0)
 	{
 		fprintf(stderr, "L%d: division by zero\n", counter);
-		fclose(bus.file);
-		free(bus.content);
+		fclose(bus.fp);
+		free(bus.line);
 		free_stack(*head);
 		exit(EXIT_FAILURE);
 	}
@@ -164,8 +164,8 @@ void f_mod(stack_t **head, unsigned int counter)
 	if (length < 2)
 	{
 		fprintf(stderr, "L%d: can't mod, stack too short\n", counter);
-		fclose(bus.file);
-		free(bus.content);
+		fclose(bus.fp);
+		free(bus.line);
 		free_stack(*head);
 		exit(EXIT_FAILURE);
 	}
@@ -173,8 +173,8 @@ void f_mod(stack_t **head, unsigned int counter)
 	if (h->n == 0)
 	{
 		fprintf(stderr, "L%d: division by zero\n", counter);
-		fclose(bus.file);
-		free(bus.content);
+		fclose(bus.fp);
+		free(bus.line);
 		free_stack(*head);
 		exit(EXIT_FAILURE);
 	}

@@ -9,7 +9,7 @@
 *
 * Return: none
 */
-int execute(char *content, stack_t **stack, unsigned int counter, FILE *file)
+int execute(char *content, stack_t **stack, unsigned int counter, FILE *fp)
 {
 	instruction_t opst[] = {
 				{"push", f_push}, {"pall", f_pall}, {"pint", f_pint},
@@ -46,7 +46,7 @@ int execute(char *content, stack_t **stack, unsigned int counter, FILE *file)
 	}
 	if (op && opst[i].opcode == NULL)
 	{ fprintf(stderr, "L%d: unknown instruction %s\n", counter, op);
-		fclose(file);
+		fclose(fp);
 		free(content);
 		free_stack(*stack);
 		exit(EXIT_FAILURE); }
@@ -68,8 +68,8 @@ void f_pop(stack_t **head, unsigned int counter)
 	if (*head == NULL)
 	{
 		fprintf(stderr, "L%d: can't pop an empty stack\n", counter);
-		fclose(bus.file);
-		free(bus.content);
+		fclose(bus.fp);
+		free(bus.line);
 		free_stack(*head);
 		exit(EXIT_FAILURE);
 	}
@@ -92,8 +92,8 @@ void f_pint(stack_t **head, unsigned int counter)
 	if (*head == NULL)
 	{
 		fprintf(stderr, "L%u: can't pint, stack empty\n", counter);
-		fclose(bus.file);
-		free(bus.content);
+		fclose(bus.fp);
+		free(bus.line);
 		free_stack(*head);
 		exit(EXIT_FAILURE);
 	}
@@ -136,14 +136,14 @@ void f_push(stack_t **head, unsigned int counter)
 				flag = 1; }
 		if (flag == 1)
 		{ fprintf(stderr, "L%d: usage: push integer\n", counter);
-			fclose(bus.file);
-			free(bus.content);
+			fclose(bus.fp);
+			free(bus.line);
 			free_stack(*head);
 			exit(EXIT_FAILURE); }}
 	else
 	{ fprintf(stderr, "L%d: usage: push integer\n", counter);
-		fclose(bus.file);
-		free(bus.content);
+		fclose(bus.fp);
+		free(bus.line);
 		free_stack(*head);
 		exit(EXIT_FAILURE); }
 	i = atoi(bus.arg);
