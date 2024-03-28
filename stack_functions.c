@@ -37,10 +37,10 @@ void add_stack(stack_t **s, stack_t **t, unsigned int l, char sn[])
 	}
 	if (newNode == NULL)
 	{
-		fprintf(stderr, "Error: malloc failed\n");
-		fflush(stderr);
+		fprintf(stdout, "Error\n");
+		fflush(stdout);
 		free_stack(s, l);
-		exit(EXIT_FAILURE);
+		exit(0);
 	}
 
 	newNode->n = n;
