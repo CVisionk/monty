@@ -14,6 +14,19 @@ int execute(char *content, stack_t **stack, unsigned int counter, FILE *file)
 	instruction_t opst[] = {
 				{"push", f_push}, {"pall", f_pall}, {"pint", f_pint},
 				{"pop", f_pop},
+				{"swap", f_swap},
+				{"add", f_add},
+				{"nop", f_nop},
+				{"sub", f_sub},
+				{"div", f_div},
+				{"mul", f_mul},
+				{"mod", f_mod},
+				{"pchar", f_pchar},
+				{"pstr", f_pstr},
+				{"rotl", f_rotl},
+				{"rotr", f_rotr},
+				{"queue", f_queue},
+				{"stack", f_stack},
 				{NULL, NULL}
 				};
 	unsigned int i = 0;
@@ -38,76 +51,4 @@ int execute(char *content, stack_t **stack, unsigned int counter, FILE *file)
 		free_stack(*stack);
 		exit(EXIT_FAILURE); }
 	return (1);
-}
-#include "monty.h"
-
-/**
- * f_pop - print top node on stack
- * @head: pointer to pointer of first node
- * @counter: line counter
- *
- * Return: none
- */
-
-void f_pop(stack_t **head, unsigned int counter)
-{
-	stack_t *h;
-
-	if (*head == NULL)
-	{
-		fprintf(stderr, "L%d: can't pop an empty stack\n", counter);
-		fclose(bus.file);
-		free(bus.content);
-		free_stack(*head);
-		exit(EXIT_FAILURE);
-	}
-
-	h = *head;
-	*head = h->next;
-	free(h);
-}
-
-/**
- * f_pint - print top node on stack
- * @head: pointer to pointer of first node
- * @counter: line counter
- *
- * Return: none
- */
-
-void f_pint(stack_t **head, unsigned int counter)
-{
-	if (*head == NULL)
-	{
-		fprintf(stderr, "L%u: can't pint, stack empty\n", counter);
-		fclose(bus.file);
-		free(bus.content);
-		free_stack(*head);
-		exit(EXIT_FAILURE);
-	}
-
-	printf("%d\n", (*head)->n);
-}
-
-/**
-* f_pall - print everything in stack
-* @head: pointer to pointer of first node
-* @counter: line counter (not used)
-*
-* Return: none
-*/
-
-void f_pall(stack_t **head, unsigned int counter)
-{
-	stack_t *h = *head;
-	(void)counter;
-
-	if (h == NULL)
-		return;
-
-	while (h)
-	{
-		printf("%d\n", h->n);
-		h = h->next;
-	}
 }
