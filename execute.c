@@ -1,36 +1,54 @@
 #include "monty.h"
 
 /**
- * execute - execute commands
- * @stack: stack on nums;
- * @line_number: line in file
- * @opcode_input: input
- */
-
-void execute(stack_t **stack, unsigned int line_number, char opcode_input[])
+* execute - execute opcode
+* @stack: stack of linked list
+* @counter: line counter
+* @file: pointer to monty file stream
+* @content: line content
+*
+* Return: none
+*/
+int execute(char *content, stack_t **stack, unsigned int counter, FILE *file)
 {
-	size_t call_length;
-	size_t i = 0;
-	instruction_t call_functions[] = {
-		{"pop", pop_stack_queue},
-		{"pall", print_stack_queue},
-		{"pint", f_pint},
-		{"add", f_add}
+	instruction_t opst[] = {
+				{"push", f_push}, {"pall", f_pall}, {"pint", f_pint},
+				{"pop", f_pop},
+				{"swap", f_swap},
+				{"add", f_add},
+				{"nop", f_nop},
+				{"sub", f_sub},
+				{"div", f_div},
+				{"mul", f_mul},
+				{"mod", f_mod},
+				{"pchar", f_pchar},
+				{"pstr", f_pstr},
+				{"rotl", f_rotl},
+				{"rotr", f_rotr},
+				{"queue", f_queue},
+				{"stack", f_stack},
+				{NULL, NULL}
+				};
+	unsigned int i = 0;
+	char *op;
 
-	};
-
-	call_length = sizeof(call_functions) / sizeof(call_functions[0]);
-
-	for (i = 0; i < call_length; i++)
+	op = strtok(content, " \n\t");
+	if (op && op[0] == '#')
+		return (0);
+	bus.arg = strtok(NULL, " \n\t");
+	while (opst[i].opcode && op)
 	{
-		if (strcmp(opcode_input, call_functions[i].opcode) == 0)
-		{
-			call_functions[i].f(stack, line_number);
-			return;
+		if (strcmp(op, opst[i].opcode) == 0)
+		{	opst[i].f(stack, counter);
+			return (0);
 		}
+		i++;
 	}
-
-	fprintf(stderr, "L%d: unknown instruction %s\n", line_number, opcode_input);
-	fflush(stderr);
-
+	if (op && opst[i].opcode == NULL)
+	{ fprintf(stderr, "L%d: unknown instruction %s\n", counter, op);
+		fclose(file);
+		free(content);
+		free_stack(*stack);
+		exit(EXIT_FAILURE); }
+	return (1);
 }
