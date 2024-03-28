@@ -88,7 +88,6 @@ void f_pint(stack_t **head, unsigned int counter)
 
 	printf("%d\n", (*head)->n);
 }
-#include "monty.h"
 
 /**
 * f_pall - print everything in stack
@@ -100,13 +99,16 @@ void f_pint(stack_t **head, unsigned int counter)
 
 void print_stack_queue(stack_t **s, unsigned int l)
 {
-	stack_t *head = *s;
-
+	stack_t *h;
 	(void)l;
-	while (head)
+
+	h = *s;
+	if (h == NULL)
+		return;
+
+	while (h)
 	{
-		printf("%d\n", head->n);
-		fflush(stdout);
-		head = head->next;
+		printf("%d\n", h->n);
+		h = h->next;
 	}
 }
