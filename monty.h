@@ -56,6 +56,7 @@ ssize_t getline(char **lineptr, size_t *n, FILE *stream);
 
 
 void add_stack(stack_t **s, stack_t **t, unsigned int line_number, char sn[]);
+void free_stack(stack_t **stack, unsigned int line_number);
 void pop_stack_queue(stack_t **stack, unsigned int line_number);
 void print_stack_queue(stack_t **s, unsigned int l);
 void f_pint(stack_t **stack, unsigned int line_number);

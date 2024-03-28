@@ -31,6 +31,27 @@ void execute(stack_t **stack, unsigned int line_number, char opcode_input[])
 	}
 
 	fprintf(stderr, "L%d: unknown instruction %s\n", line_number, opcode_input);
+	free_stack(stack, line_number);
 	fflush(stderr);
 
+}
+
+/**
+ * free_stack - frees the stack
+ * @stack: head of stack
+ * @line_number: lines read
+ */
+
+void free_stack(stack_t **stack, unsigned int line_number)
+{
+	stack_t *head = *stack;
+	stack_t *temp;
+
+	(void)line_number;
+	while(head)
+	{
+		temp = head;
+		head = head->next;
+		free(temp);
+	}
 }

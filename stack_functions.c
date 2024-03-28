@@ -32,12 +32,14 @@ void add_stack(stack_t **s, stack_t **t, unsigned int l, char sn[])
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", l);
 		fflush(stderr);
+		free_stack(s, l);
 		exit(EXIT_FAILURE);
 	}
 	if (newNode == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
 		fflush(stderr);
+		free_stack(s, l);
 		exit(EXIT_FAILURE);
 	}
 
@@ -70,6 +72,7 @@ void pop_stack_queue(stack_t **stack, unsigned int line_number)
 	{
 		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
 		fflush(stderr);
+		free_stack(stack, line_number);
 		exit(EXIT_FAILURE);
 	}
 
@@ -95,15 +98,16 @@ void pop_stack_queue(stack_t **stack, unsigned int line_number)
  * @l: lines read
  */
 
-void print_stack_queue(stack_t **s, __attribute__((unused)) unsigned int l)
+void print_stack_queue(stack_t **s, unsigned int l)
 {
-	stack_t *current = *s;
-
-	while (current)
+	stack_t *head = *s;
+	
+	(void)l;
+	while (head)
 	{
-		printf("%d\n", current->n);
+		printf("%d\n", head->n);
 		fflush(stdout);
-		current = current->next;
+		head = head->next;
 	}
 }
 
@@ -123,6 +127,7 @@ void f_pint(stack_t **stack, unsigned int line_number)
 	{
 		fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
 		fflush(stderr);
+		free_stack(stack, line_number);
 		exit(EXIT_FAILURE);
 	}
 

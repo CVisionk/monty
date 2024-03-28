@@ -3,17 +3,6 @@
 #include "monty.h"
 
 /**
- * usage_exit - exit program
- */
-
-void usage_exit(void)
-{
-	fprintf(stderr, "USAGE: monty file\n");
-	fflush(stderr);
-	exit(EXIT_FAILURE);
-}
-
-/**
  * main - entry point
  * @argc: number of args
  * @argv: array of args
@@ -32,7 +21,12 @@ int main(int argc, char *argv[])
 	stack_t *tail = NULL;
 
 	if (argc != 2)
-		usage_exit();
+	{
+		fprintf(stderr, "USAGE: monty file\n");
+		fflush(stderr);
+		exit(EXIT_FAILURE);
+	}
+
 	fp = fopen(argv[1], "r");
 	if (!fp)
 	{
@@ -57,6 +51,7 @@ int main(int argc, char *argv[])
 		line = NULL;
 	}
 	fclose(fp);
+	free_stack(&stack, line_number);
 
 	return (0);
 }

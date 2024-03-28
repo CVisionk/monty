@@ -54,6 +54,7 @@ void do_arithmetic(stack_t **stack, unsigned int line_number, char op[])
 	if (!curr || !curr->next)
 	{
 		fprintf(stderr, "L%d: can't %s, stack too short\n", line_number, op);
+		free_stack(stack, line_number);
 		fflush(stderr);
 		exit(EXIT_FAILURE);
 	}
